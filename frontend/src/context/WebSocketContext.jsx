@@ -14,7 +14,8 @@ export const WebSocketProvider = ({ children }) => {
       const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
       const wsProtocol = isHttps ? 'wss:' : 'ws:';
       const host = typeof window !== 'undefined' ? window.location.host : 'localhost:5173';
-      const brokerURL = `${wsProtocol}//${host}/ws`;
+      const defaultBrokerURL = `${wsProtocol}//${host}/ws`;
+      const brokerURL = import.meta.env.VITE_WS_URL || defaultBrokerURL;
 
       stompClient = new Client({
         brokerURL: brokerURL,
